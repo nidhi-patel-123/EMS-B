@@ -25,7 +25,7 @@ exports.adminRegister = async (req, res) => {
   }
   /*
     CURL for create admin in database
-    curl -X POST https://ems-backend-jade.vercel.app/admin/register \
+    curl -X POST http://localhost:3001/admin/register \
     -H "Content-Type: application/json" \
     -d '{"email":"admin@gmail.com","password":"admin"}'
 */
