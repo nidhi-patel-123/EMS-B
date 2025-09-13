@@ -62,6 +62,8 @@ const employeeSchema = new mongoose.Schema({
   },
 }, {
   timestamps: true,
+  versionKey: false
+  
 });
 
 employeeSchema.pre('save', async function (next) {

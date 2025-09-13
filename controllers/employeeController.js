@@ -3,6 +3,8 @@ const Attendance = require("../models/Attendance");
 const Leave = require("../models/Leave");
 const Project = require("../models/Project");
 const Payroll = require("../models/Payroll");
+const Admin = require("../models/Admin");
+const Notification = require("../models/Notification");
 const bcrypt = require("bcryptjs");
 
 // Get employee profile
@@ -74,6 +76,25 @@ exports.checkIn = async (req, res) => {
     }
     record.checkIn = new Date();
     await record.save();
+
+    // Create and emit notifications to all admins
+    const admins = await Admin.find(); // If multiple admins; if single, findOne()
+    const employeeName = req.user.name || req.user.email || 'An employee';
+    const message = `${employeeName} has checked in.`;
+
+    for (const admin of admins) {
+      const notification = new Notification({
+        recipient: admin._id,
+        recipientModel: 'Admin',
+        type: 'attendance',
+        message,
+        relatedId: record._id,
+        relatedModel: 'Attendance',
+      });
+      await notification.save();
+      req.io.to(`admin_${admin._id}`).emit('newNotification', notification);
+    }
+
     res.json({
       id: record._id,
       date: record.attendanceDate.toISOString().slice(0, 10),
@@ -105,6 +126,25 @@ exports.checkOut = async (req, res) => {
     }
     record.checkOut = new Date();
     await record.save();
+
+    // Create and emit notifications to all admins
+    const admins = await Admin.find(); // If multiple admins; if single, findOne()
+    const employeeName = req.user.name || req.user.email || 'An employee';
+    const message = `${employeeName} has checked out.`;
+
+    for (const admin of admins) {
+      const notification = new Notification({
+        recipient: admin._id,
+        recipientModel: 'Admin',
+        type: 'attendance',
+        message,
+        relatedId: record._id,
+        relatedModel: 'Attendance',
+      });
+      await notification.save();
+      req.io.to(`admin_${admin._id}`).emit('newNotification', notification);
+    }
+
     res.json({
       id: record._id,
       date: record.attendanceDate.toISOString().slice(0, 10),
@@ -141,6 +181,35 @@ exports.applyLeave = async (req, res) => {
       status: "Pending",
     });
     await leave.save();
+
+    // Create and emit notifications to all admins
+    const admins = await Admin.find();
+    const employeeName = req.user.name || req.user.email || 'An employee';
+    const type = leave.type || 'leave';
+    const startDate = new Date(leave.from);
+    const endDate = new Date(leave.to);
+    const message = `${employeeName} submitted a ${type} request from ${startDate.toLocaleDateString()} to ${endDate.toLocaleDateString()}`;
+
+    let lastPayload;
+    for (const admin of admins) {
+      const notification = new Notification({
+        recipient: admin._id,
+        recipientModel: 'Admin',
+        type: 'leave',
+        message,
+        relatedId: leave._id,
+        relatedModel: 'Leave',
+      });
+      await notification.save();
+      lastPayload = notification.toObject();
+      // Emit real-time notification to specific admin room
+      req.io.to(`admin_${admin._id}`).emit('newNotification', lastPayload);
+    }
+    // Broadcast to all admins listening to the shared room
+    if (admins && admins.length > 0 && lastPayload) {
+      req.io.to('admins').emit('newNotification', lastPayload);
+    }
+
     res.status(201).json(leave);
   } catch (err) {
     res.status(500).json({ message: "Error applying for leave", error: err });
