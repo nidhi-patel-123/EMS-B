@@ -16,7 +16,7 @@
 // app.use(cors({
 //   origin: [
 //     'http://localhost:3000',
-//     'https://ems-b-ge5b.onrender.com',
+//     'https://ems-b-86xl.onrender.com',
 //     'http://localhost:3002',
 //     'http://localhost:3003'
 //   ], // Allow requests from React frontend
@@ -113,7 +113,7 @@
 // app.use(cors({
 //   origin: [
 //     'http://localhost:3000',
-//     'https://ems-b-ge5b.onrender.com',
+//     'https://ems-b-86xl.onrender.com',
 //     'http://localhost:3002',
 //     'http://localhost:3003'
 //   ],
@@ -212,9 +212,9 @@ const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
     origin: [
-      'http://localhost:3000',
-      'https://ems-b-ge5b.onrender.com',
-      'http://localhost:3002',
+      'https://ems-a-tawny.vercel.app/admin/login',
+      'https://ems-b-86xl.onrender.com',
+      'https://ems-e.vercel.app/login',
       'http://localhost:3003'
     ],
     methods: ['GET', 'POST'],
@@ -250,9 +250,9 @@ io.on('connection', (socket) => {
 // Configure CORS
 app.use(cors({
   origin: [
-    'http://localhost:3000',
-    'https://ems-b-ge5b.onrender.com',
-    'http://localhost:3002',
+    'https://ems-a-tawny.vercel.app/admin/login',
+    'https://ems-b-86xl.onrender.com',
+    'https://ems-e.vercel.app/login',
     'http://localhost:3003'
   ],
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],

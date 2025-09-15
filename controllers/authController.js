@@ -25,7 +25,7 @@ exports.adminRegister = async (req, res) => {
   }
   /*
     CURL for create admin in database
-    curl -X POST https://ems-b-ge5b.onrender.com/admin/register \
+    curl -X POST https://ems-b-86xl.onrender.com/admin/register \
     -H "Content-Type: application/json" \
     -d '{"email":"admin@gmail.com","password":"admin"}'
 */
