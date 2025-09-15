@@ -250,7 +250,7 @@ io.on('connection', (socket) => {
 // Configure CORS
 app.use(cors({
   origin: [
-    'http://localhost:3001',
+    'http://localhost:3000',
     'https://ems-b-86xl.onrender.com',
     'https://ems-e.vercel.app',
     'http://localhost:3003'
