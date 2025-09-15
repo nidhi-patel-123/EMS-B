@@ -16,7 +16,7 @@
 // app.use(cors({
 //   origin: [
 //     'http://localhost:3000',
-//     'http://localhost:3001',
+//     'https://ems-b-ge5b.onrender.com',
 //     'http://localhost:3002',
 //     'http://localhost:3003'
 //   ], // Allow requests from React frontend
@@ -113,7 +113,7 @@
 // app.use(cors({
 //   origin: [
 //     'http://localhost:3000',
-//     'http://localhost:3001',
+//     'https://ems-b-ge5b.onrender.com',
 //     'http://localhost:3002',
 //     'http://localhost:3003'
 //   ],
@@ -213,7 +213,7 @@ const io = socketIo(server, {
   cors: {
     origin: [
       'http://localhost:3000',
-      'http://localhost:3001',
+      'https://ems-b-ge5b.onrender.com',
       'http://localhost:3002',
       'http://localhost:3003'
     ],
@@ -251,7 +251,7 @@ io.on('connection', (socket) => {
 app.use(cors({
   origin: [
     'http://localhost:3000',
-    'http://localhost:3001',
+    'https://ems-b-ge5b.onrender.com',
     'http://localhost:3002',
     'http://localhost:3003'
   ],
