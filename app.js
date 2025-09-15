@@ -212,7 +212,7 @@ const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
     origin: [
-      'https://ems-a-tawny.vercel.app/admin/login',
+      'http://localhost:3001',
       'https://ems-b-86xl.onrender.com',
       'https://ems-e.vercel.app',
       'http://localhost:3003'
@@ -250,7 +250,7 @@ io.on('connection', (socket) => {
 // Configure CORS
 app.use(cors({
   origin: [
-    'https://ems-a-tawny.vercel.app/admin/login',
+    'http://localhost:3001',
     'https://ems-b-86xl.onrender.com',
     'https://ems-e.vercel.app',
     'http://localhost:3003'
