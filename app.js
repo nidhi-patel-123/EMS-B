@@ -212,9 +212,9 @@ const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
     origin: [
-      'https://ems-a-tawny.vercel.app/admin/login',
+      'https://ems-a-tawny.vercel.app',
       'https://ems-b-86xl.onrender.com',
-      'https://ems-e.vercel.app/login',
+      'https://ems-e.vercel.app',
       'http://localhost:3003'
     ],
     methods: ['GET', 'POST'],
@@ -250,9 +250,9 @@ io.on('connection', (socket) => {
 // Configure CORS
 app.use(cors({
   origin: [
-    'https://ems-a-tawny.vercel.app/admin/login',
+    'https://ems-a-tawny.vercel.app',
     'https://ems-b-86xl.onrender.com',
-    'https://ems-e.vercel.app/login',
+    'https://ems-e.vercel.app',
     'http://localhost:3003'
   ],
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
