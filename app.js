@@ -265,8 +265,8 @@ mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-.then(() => console.log('MongoDB connected✔️'))
-.catch(err => console.error('MongoDB connection error:', err));
+  .then(() => console.log('MongoDB connected✔️'))
+  .catch(err => console.error('MongoDB connection error:', err));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -283,12 +283,12 @@ app.use('/employee', employeeRouter);
 app.use('/admin/settings', settingsRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   if (req.path.startsWith('/admin/') || req.path.startsWith('/employee/')) {
     const status = err.status || 500;
     const message = err.message || 'Internal Server Error';
